@@ -1,16 +1,19 @@
 package io.github.rusyasoft.example.bank.ipoteka.controller;
 
+import com.google.common.collect.Lists;
 import io.github.rusyasoft.example.bank.ipoteka.model.Bank;
+import io.github.rusyasoft.example.bank.ipoteka.repository.BankRepository;
 import io.github.rusyasoft.example.bank.ipoteka.service.CsvParser;
 import io.github.rusyasoft.example.bank.ipoteka.service.CsvFileReader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-public class TestController {
+public class BusinessAPIController {
 
     @Autowired
     CsvFileReader csvFileReader;
@@ -33,9 +36,13 @@ public class TestController {
         return csvParser.parseCsvAndStore(totalStr);
     }
 
+    @Autowired
+    private BankRepository bankRepository;
 
     @GetMapping("/banks")
     public List<Bank> getBankNameList() {
-        return null;
+
+//        return bankRepository.findById(0).get();
+        return Lists.newArrayList(bankRepository.findAll());
     }
 }

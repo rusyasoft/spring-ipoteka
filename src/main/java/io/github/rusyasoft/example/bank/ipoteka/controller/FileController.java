@@ -21,8 +21,8 @@ import java.util.List;
 @Slf4j
 @RestController
 @Api(value="storage", description = "csv file upload")
-@RequestMapping("/banks/")
-public class BucketController {
+@RequestMapping("/input/")
+public class FileController {
 
     @Autowired
     private FileStorageService fileStorageService;

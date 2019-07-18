@@ -1,7 +1,7 @@
 
 
 
-INSERT INTO bank (name) VALUES ('kookmin');
+INSERT INTO bank (id, name) VALUES (0, 'kookmin');
 
 -- INSERT INTO country (name) VALUES ('India');
 -- INSERT INTO country (name) VALUES ('Brazil');

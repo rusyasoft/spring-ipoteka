@@ -1,17 +1,16 @@
 package io.github.rusyasoft.example.bank.ipoteka.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import lombok.Data;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.*;
+
 
 @Entity
+@Data
 public class FinanceStat {
  
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column(nullable = false)
@@ -25,4 +24,11 @@ public class FinanceStat {
 
     @Column(nullable = false)
     private Integer amount;
+
+    public FinanceStat(Integer year, Integer month, Integer bankId, Integer amount) {
+        this.year = year;
+        this.month = month;
+        this.bankId = bankId;
+        this.amount = amount;
+    }
 }

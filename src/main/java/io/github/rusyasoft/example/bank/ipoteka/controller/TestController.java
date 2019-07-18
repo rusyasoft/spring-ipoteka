@@ -1,9 +1,6 @@
 package io.github.rusyasoft.example.bank.ipoteka.controller;
 
 import io.github.rusyasoft.example.bank.ipoteka.model.Bank;
-import io.github.rusyasoft.example.bank.ipoteka.model.FinanceStat;
-import io.github.rusyasoft.example.bank.ipoteka.repository.BankRepository;
-import io.github.rusyasoft.example.bank.ipoteka.repository.FinanceStatRepository;
 import io.github.rusyasoft.example.bank.ipoteka.service.CsvParser;
 import io.github.rusyasoft.example.bank.ipoteka.service.CsvFileReader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +30,7 @@ public class TestController {
     public Boolean parseThem() {
         String totalStr = csvFileReader.readResourceFile("123.csv");
 
-        return csvParser.parseCsvString(totalStr);
+        return csvParser.parseCsvAndStore(totalStr);
     }
 
 

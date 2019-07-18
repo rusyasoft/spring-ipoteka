@@ -25,7 +25,7 @@ public class CsvParser {
     @Autowired
     FinanceStatRepository financeStatRepository;
 
-    public boolean parseCsvString(String rawCsvFileString) {
+    public boolean parseCsvAndStore(String rawCsvFileString) {
 
         try {
             List<String> csvLines = splitLines(rawCsvFileString);

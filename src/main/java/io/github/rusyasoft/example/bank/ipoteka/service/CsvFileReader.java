@@ -1,5 +1,6 @@
 package io.github.rusyasoft.example.bank.ipoteka.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -8,11 +9,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 @Service
 public class CsvFileReader {
 
     @Value("${java.io.tmpdir}")
     public String tmpDirPath;
+
+    public String readFile(File file) {
+        try {
+            InputStream inputStream = new FileInputStream(file);
+            String data = readFromInputStream(inputStream);
+            log.info("data: " + data);
+            return data;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "";
+    }
 
     public String readResourceFile(String fileName) {
 

@@ -36,14 +36,12 @@ public class UserService {
         return admin;
     }
 
-
     private UserEntity encryptUserPassword(UserEntity userEntity) {
         if (userEntity !=  null) {
             userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         }
         return userEntity;
     }
-
 
     public UserEntity getUserById(Long id) {
         return userRepository.findById(id).orElseGet(null);
@@ -53,13 +51,7 @@ public class UserService {
         return Lists.newArrayList(userRepository.findAll());
     }
 
-
     public UserEntity getUserByName(String name) {
          return userRepository.findByName(name);
     }
-
-
-
-
-
 }

@@ -1,4 +1,7 @@
 
+server:
+  port: 8081
+
 spring:
   profiles:
     active: local
@@ -17,5 +20,10 @@ spring:
   h2:
     console:
       enabled: true
-server:
-  port: 8081
+
+
+user-security:
+  jwtSecret: <Y28A[Q+Khee@^4g
+  jwtExpInSeconds: 86400
+  jwtRefreshExpInSeconds: 172800
+

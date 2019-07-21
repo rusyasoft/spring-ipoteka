@@ -3,7 +3,7 @@
 
 INSERT INTO bank (id, name) VALUES (0, 'kookmin');
 
-insert into user (id, name, password, email) values (0, 'admin' , '$2b$10$QO2/Imc3mcmfhhKoqQjMIOYwTPFTP.tAj7NGkWCfjvVpHkiw3b1kK', 'admin@gmail.com');
+insert into user (id, username, password, email) values (0, 'admin' , '$2a$10$GpqRPjFiqTkQu45bSyr0J.dNc8X4xubjP0V2On4B5sXhZHEwc5NJq', 'admin@gmail.com');
 -- INSERT INTO country (name) VALUES ('India');
 -- INSERT INTO country (name) VALUES ('Brazil');
 -- INSERT INTO country (name) VALUES ('USA');

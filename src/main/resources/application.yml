@@ -26,4 +26,3 @@ user-security:
   jwtSecret: <Y28A[Q+Khee@^4g
   jwtExpInSeconds: 86400
   jwtRefreshExpInSeconds: 172800
-

@@ -29,17 +29,17 @@ public class FileStorageService {
     @Autowired
     private CsvParser csvParser;
 
-    public List<FileUploadStatusResponse> storeFiles(MultipartFile[] multipartFiles) {
+    public List<FileUploadStatusResponse> uploadMultipleFiles(MultipartFile[] multipartFiles) {
 
         return Arrays.asList(multipartFiles)
                 .stream()
-                .map(file -> uploadProcessStore(file))
+                .map(file -> uploadSingleFile(file))
                 .flatMap(file -> file.stream())
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
-    private List<FileUploadStatusResponse> uploadProcessStore(MultipartFile multipartFile) {
+    public List<FileUploadStatusResponse> uploadSingleFile(MultipartFile multipartFile) {
         List<FileUploadStatusResponse> fileStatusResponseList = new ArrayList<>();
         String fileName = multipartFile.getOriginalFilename();
 
@@ -59,8 +59,8 @@ public class FileStorageService {
 
         fileStatusResponseList.add(
                 new FileUploadStatusResponse(
-                    fileName
-                    , isParsed? "SUCCESS" : "FAILED"
+                        fileName
+                        , isParsed ? "SUCCESS" : "FAILED"
                 )
         );
 

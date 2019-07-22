@@ -1,11 +1,10 @@
 package io.github.rusyasoft.example.bank.ipoteka.business.controller;
 
-import io.github.rusyasoft.example.bank.ipoteka.business.model.FinanceStatPredictResponse;
-import io.github.rusyasoft.example.bank.ipoteka.business.service.BankService;
-import io.github.rusyasoft.example.bank.ipoteka.prediction.ArimaWrapperUsage;
 import io.github.rusyasoft.example.bank.ipoteka.business.model.ExtremePointsOfAverage;
+import io.github.rusyasoft.example.bank.ipoteka.business.model.FinanceStatPredictResponse;
 import io.github.rusyasoft.example.bank.ipoteka.business.model.IHighestValuedBankYear;
 import io.github.rusyasoft.example.bank.ipoteka.business.model.IYearlyTotalDetailAmounts;
+import io.github.rusyasoft.example.bank.ipoteka.business.service.BankService;
 import io.github.rusyasoft.example.bank.ipoteka.business.service.FinanceStatService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,7 +18,7 @@ import java.util.List;
 @Api(value = "Business", description = "주택 금융 서비스 API")
 @RequestMapping("/banks/")
 @RestController
-public class BusinessAPIController {
+public class BusinessApiController {
 
 
 //    //TODO: should be removed

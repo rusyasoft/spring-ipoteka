@@ -2,21 +2,15 @@ package io.github.rusyasoft.example.bank.ipoteka.security.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.annotations.Where;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toList;
 
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Getter
@@ -31,13 +25,13 @@ public class UserEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, length=50)
+    @Column(nullable = false, length = 50, unique = true)
     private String username;
 
-    @Column(nullable = false, length=200)
+    @Column(nullable = false, length = 200)
     private String password;
 
-    @Column(length=500)
+    @Column(length = 500)
     private String email;
 
     @JsonIgnore

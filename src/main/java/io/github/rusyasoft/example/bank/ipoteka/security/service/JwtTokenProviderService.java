@@ -1,9 +1,9 @@
 package io.github.rusyasoft.example.bank.ipoteka.security.service;
 
-import io.github.rusyasoft.example.bank.ipoteka.security.model.UserEntity;
-import io.github.rusyasoft.example.bank.ipoteka.security.model.UserToken;
 import io.github.rusyasoft.example.bank.ipoteka.security.model.JwtInfoDetails;
 import io.github.rusyasoft.example.bank.ipoteka.security.model.LoginParam;
+import io.github.rusyasoft.example.bank.ipoteka.security.model.UserEntity;
+import io.github.rusyasoft.example.bank.ipoteka.security.model.UserToken;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Objects;
 
@@ -42,11 +43,10 @@ public class JwtTokenProviderService {
     private UserService userService;
 
 
-
     public JwtInfoDetails authenticateAndGenerateToken(LoginParam loginParam) throws Exception {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpInSeconds * ONE_SECOND_IN_MILLISECONDS);
-        return authenticateAndGenerateToken(loginParam.getLoginId(), loginParam.getPassword(),  now, expiryDate);
+        return authenticateAndGenerateToken(loginParam.getLoginId(), loginParam.getPassword(), now, expiryDate);
     }
 
     public JwtInfoDetails authenticateAndGenerateToken(String userName, String password, Date issueAt, Date expiryDate) throws Exception {
@@ -54,10 +54,10 @@ public class JwtTokenProviderService {
         try {
             passwordFromDb = this.getUserEnityByName(userName).getPassword();
         } catch (Exception e) {
-            return  failedGenerateToken("Authentication Failed!!!");
+            return failedGenerateToken("Authentication Failed!!!");
         }
 
-        if ( !this.comparePassword(password, passwordFromDb) ) {
+        if (!this.comparePassword(password, passwordFromDb)) {
             return failedGenerateToken("Authentication Failed!!!");
         }
 
@@ -84,7 +84,7 @@ public class JwtTokenProviderService {
                 .setSubject(userName)
                 .setIssuedAt(issueAt)
                 .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, jwtSecret.getBytes("UTF-8"))
+                .signWith(SignatureAlgorithm.HS512, jwtSecret.getBytes(StandardCharsets.UTF_8))
                 .compact();
         return jwtToken;
     }
@@ -146,15 +146,12 @@ public class JwtTokenProviderService {
         Claims claims = null;
         try {
             claims = Jwts.parser()
-                    .setSigningKey(jwtSecret.getBytes("UTF-8"))
+                    .setSigningKey(jwtSecret.getBytes(StandardCharsets.UTF_8))
                     .parseClaimsJws(jwtToken)
                     .getBody();
-        } catch(ExpiredJwtException e){
+        } catch (ExpiredJwtException e) {
             log.info("token expired for id : " + e.getClaims().getId());
             claims = e.getClaims();
-        } catch (UnsupportedEncodingException e) {
-            log.error("JwtTokenProvider.getUserNameFromJWT has failed: " + e.getMessage());
-            throw new RuntimeException("Given token is not valid ! (Unsupported encoding)");
         } catch (SignatureException e) {
             throw new RuntimeException("Given token is not valid !");
         }

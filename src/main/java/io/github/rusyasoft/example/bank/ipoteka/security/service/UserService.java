@@ -4,41 +4,49 @@ import com.google.common.collect.Lists;
 import io.github.rusyasoft.example.bank.ipoteka.security.model.UserEntity;
 import io.github.rusyasoft.example.bank.ipoteka.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
 
 @Service
 public class UserService {
 
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
+    private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public UserEntity addUser(UserEntity admin) {
-        return userRepository.save(encryptUserPassword(admin));
+        try {
+            return userRepository.save(encryptUserPassword(admin));
+        } catch (DataIntegrityViolationException ex) {
+            throw new RuntimeException("The user already exist !");
+        }
+
     }
 
-    public UserEntity updateUser(UserEntity admin) {
-        return userRepository.save(encryptUserPassword(admin));
-    }
-
-    public UserEntity resetPassword(Long adminId, String rawPassword) {
-        UserEntity admin = this.getUserById(adminId);
-        if (admin !=  null) {
+    public UserEntity resetPassword(Long id, String rawPassword) {
+        UserEntity admin = this.getUserById(id);
+        if (admin != null) {
             admin.setPassword(rawPassword);
             updateUser(admin);
         }
         return admin;
     }
 
+    private UserEntity updateUser(UserEntity user) {
+        return userRepository.save(encryptUserPassword(user));
+    }
+
     private UserEntity encryptUserPassword(UserEntity userEntity) {
-        if (userEntity !=  null) {
+        if (userEntity != null) {
             userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         }
         return userEntity;
@@ -53,6 +61,6 @@ public class UserService {
     }
 
     public UserEntity getUserByName(String name) throws Exception {
-         return userRepository.findByUsername(name).orElseThrow(() -> new UsernameNotFoundException("Username: " + name + " not found"));
+        return userRepository.findByUsername(name).orElseThrow(() -> new UsernameNotFoundException("Username: " + name + " not found"));
     }
 }

@@ -17,3 +17,11 @@ API List:
 User Management:
 - Send login & password and get the token
 - Refresh the token based on expired token (in some given interval after expiration of the original token)
+
+
+
+
+Failure Token:
+Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmZWRvciIsImlhdCI6MTU2Mzc5NDc1MSwiZXhwIjoxNTYzODgxMTUxfQ.kvfeCpwYETTLVbL5Deq3dCdCUFZTOFv5WN3JuXCWV0YV9Vwb4EnEjZ21u85_1J1lnTSaVVcDrWJmax5SYz9M9g
+Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmZWRvciIsImlhdCI6MTU2Mzc5NDc1MSwiZXhwIjoxNTYzODgxMTUxfQ.kvfeCpwYETTLVbL5Deq3dCdCUFZTOFv5WN3JuXCWV0YV9Vwb4EnEjZ21u85_1J1lnTSaVVcDrWJmax5SYz9M9g
+

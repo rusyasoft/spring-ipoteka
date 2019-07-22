@@ -10,16 +10,16 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 @EnableJpaRepositories
 public class IpotekaApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(IpotekaApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(IpotekaApplication.class, args);
+    }
 
-	@Bean
-	CharacterEncodingFilter characterEncodingFilter() {
-		CharacterEncodingFilter filter = new CharacterEncodingFilter();
-		filter.setEncoding("UTF-8");
-		filter.setForceEncoding(true);
-		return filter;
-	}
+    @Bean
+    CharacterEncodingFilter characterEncodingFilter() {
+        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        filter.setEncoding("UTF-8");
+        filter.setForceEncoding(true);
+        return filter;
+    }
 
 }

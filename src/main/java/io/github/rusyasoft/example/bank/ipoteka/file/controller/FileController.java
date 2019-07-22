@@ -16,7 +16,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@Api(value="storage", description = "데이터 파일에서 각 레코드를 데이터베이스에 저장하는 API")
+@Api(value = "storage", description = "데이터 파일에서 각 레코드를 데이터베이스에 저장하는 API")
 @RequestMapping("/input/")
 public class FileController {
 
@@ -29,24 +29,18 @@ public class FileController {
     @Autowired
     CsvParser csvParser;
 
-    @RequestMapping(value="/multipleFilesUpload" ,
-            headers=("content-type=multipart/form-data"),
-            method= RequestMethod.POST)
+    @RequestMapping(value = "/multipleFilesUpload", headers = ("content-type=multipart/form-data"), method = RequestMethod.POST)
     @ApiOperation(value = "데이터 파일에서 각 레코드를 데이터베이스에 저장하는 API (upload multiple files)", response = List.class)
     public List<FileUploadStatusResponse> multipleFilesUpload(
-            @RequestParam(value="file") MultipartFile[] files
-    ) throws IOException {
-        return fileStorageService.storeFiles(files);
+            @RequestParam(value = "file") MultipartFile[] files) throws IOException {
+        return fileStorageService.uploadMultipleFiles(files);
     }
 
-    @RequestMapping(value="/fileUpload" ,
-            method= RequestMethod.POST)
+    @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
     @ApiOperation(value = "데이터 파일에서 각 레코드를 데이터베이스에 저장하는 API", response = String.class)
-    public String fileUpload(
-            @RequestParam(value="file") MultipartFile file
-    ) throws IOException {
-        System.out.println("here");
-        return "yeap";
+    public List<FileUploadStatusResponse> fileUpload(
+            @RequestParam(value = "file") MultipartFile file) throws IOException {
+        return fileStorageService.uploadSingleFile(file);
     }
 
     @GetMapping("/parse")

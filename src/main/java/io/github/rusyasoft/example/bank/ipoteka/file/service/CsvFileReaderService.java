@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.nio.charset.StandardCharsets;
 
 @Slf4j
 @Service
@@ -16,7 +14,7 @@ public class CsvFileReaderService {
     @Value("${java.io.tmpdir}")
     public String tmpDirPath;
 
-    public String readFile(File file) {
+    String readFile(File file) {
         try {
             InputStream inputStream = new FileInputStream(file);
             String data = readFromInputStream(inputStream);
@@ -45,7 +43,7 @@ public class CsvFileReaderService {
             throws IOException {
         StringBuilder resultStringBuilder = new StringBuilder();
         try (BufferedReader br
-                     = new BufferedReader(new InputStreamReader(inputStream, "UTF8"))) {
+                     = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
 
             // it was good experience. found from -> https://stackoverflow.com/questions/17405165/first-character-of-the-reading-from-the-text-file-%C3%AF
             br.mark(1);

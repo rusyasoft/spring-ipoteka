@@ -24,22 +24,34 @@ public class JwtTokenProviderController {
     @Autowired
     private UserService userService;
 
-    @PostMapping(value = "/jwtAuthentication")
+    @PostMapping(value = "/auth")
     @ApiOperation(value = "로그인하고 jwt 토큰을 받기", response = JwtInfoDetails.class)
     public JwtInfoDetails jwtAuthentication(@RequestBody LoginParam loginParam) throws Exception {
         return jwtTokenProviderService.authenticateAndGenerateToken(loginParam);
     }
 
-    @PostMapping(value = "/refreshJwt")
+    @PostMapping(value = "/refresh-token")
     @ApiOperation(value = "jwt 토큰 Refresh 하기", response = JwtInfoDetails.class)
     public JwtInfoDetails jwtAuthentication(@RequestBody UserToken userToken) {
         return jwtTokenProviderService.refreshToken(userToken);
     }
 
-    @PostMapping(value = "/addUser")
+    @PostMapping(value = "/add-user")
     @ApiOperation(value = "사용자 추가 하기 (with requestBody)", response = UserEntityResponse.class)
     public UserEntityResponse addUser(@RequestBody UserEntity userEntity) {
         UserEntityResponse userEntityResponse = new UserEntityResponse(userService.addUser(userEntity));
         return userEntityResponse;
     }
+
+    @PostMapping(value = "/user-password-reset")
+    @ApiOperation(value = "사용자 비밀 번호 reset 하기 (with requestBody)", response = UserEntityResponse.class)
+    public UserEntityResponse addUser(@RequestBody UserPasswordEntity userPasswordEntity) {
+        UserEntityResponse userEntityResponse = new UserEntityResponse(
+                userService.resetPassword(userPasswordEntity.getId(), userPasswordEntity.getPassword())
+        );
+
+        return userEntityResponse;
+    }
+
+
 }

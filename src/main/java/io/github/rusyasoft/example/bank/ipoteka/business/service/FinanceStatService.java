@@ -2,11 +2,13 @@ package io.github.rusyasoft.example.bank.ipoteka.business.service;
 
 
 import io.github.rusyasoft.example.bank.ipoteka.business.model.*;
+import io.github.rusyasoft.example.bank.ipoteka.business.repository.BankRepository;
+import io.github.rusyasoft.example.bank.ipoteka.business.repository.FinanceStatRepository;
 import io.github.rusyasoft.example.bank.ipoteka.prediction.ArimaWrapper;
-import io.github.rusyasoft.example.bank.ipoteka.business.repository.*;
 import io.jsonwebtoken.lang.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,9 +59,10 @@ public class FinanceStatService {
 
     public ExtremePointsOfAverage getMinMaxYearlyAveragesOfBank(int id) {
         ArrayList<IYearlyAverage> iYearlyAverages = financeStatRepository.findYearlyAverageByBankId(id);
-        int minAvg = iYearlyAverages.get(0).getAverage();
-        int maxAvg = iYearlyAverages.get(0).getAverage();
 
+        if (CollectionUtils.isEmpty(iYearlyAverages)) {
+            throw new RuntimeException("No data available for processing!");
+        }
 
         YearlyAverage minYearlyAverage = new YearlyAverage(iYearlyAverages.get(0));
         YearlyAverage maxYearlyAverage = new YearlyAverage(iYearlyAverages.get(0));
@@ -79,7 +82,7 @@ public class FinanceStatService {
                 iYearlyAverages.get(0).getName(),
                 minYearlyAverage,
                 maxYearlyAverage
-                );
+        );
 
         return extremePointsOfAverage;
 
@@ -97,16 +100,19 @@ public class FinanceStatService {
         int bankId = bankList.get(0).getId();
 
         List<Integer> amountList = financeStatRepository.findAllAmounts(bankId);
+        if (Collections.isEmpty(amountList)) {
+            throw new RuntimeException("Amount list cannot be found! for bank: " + bankName);
+        }
 
-        double [] doubleAmountArray = new double[amountList.size()];
-        for (int i = 0; i < amountList.size();i++) {
+        double[] doubleAmountArray = new double[amountList.size()];
+        for (int i = 0; i < amountList.size(); i++) {
             doubleAmountArray[i] = amountList.get(i);
         }
 
         int predicted = arimaWrapper.getMonthPrediction(month, doubleAmountArray);
 
         FinanceStatPredictResponse financeStatPredictResponse = FinanceStatPredictResponse.builder()
-                .bank("bnk" + String.valueOf(bankId))
+                .bank("bnk" + bankId)
                 .year(2018)
                 .month(month)
                 .amount(predicted)

@@ -40,7 +40,7 @@ public class CsvParser {
                 financeStatRepository.saveAll(financeStatList);
             }
         } catch (Exception e) {
-            log.error("Error happened while parsing Csv String, e:" + e.getMessage() );
+            log.error("Error happened while parsing Csv String, e:" + e.getMessage());
             return false;
         }
 
@@ -53,7 +53,7 @@ public class CsvParser {
             new RuntimeException("Conversion error: Empty csvFile string");
         }
 
-        String [] parsedString = rawCsvFileStr.split(CSV_NEWLINE_SPLITTER);
+        String[] parsedString = rawCsvFileStr.split(CSV_NEWLINE_SPLITTER);
         if (parsedString.length <= 0) {
             new RuntimeException("Conversion error: CSV splitting by new lines didn't work");
         }
@@ -62,10 +62,10 @@ public class CsvParser {
     }
 
     public List<Bank> parseBanks(String rawCsvLine) {
-        String [] parsedString = preProcessingCsvRawString(rawCsvLine);
+        String[] parsedString = preProcessingCsvRawString(rawCsvLine);
 
         List<Bank> resultBankList = new ArrayList<>();
-        for(int i = 0; i < parsedString.length;i++) {
+        for (int i = 0; i < parsedString.length; i++) {
             String currenBank = parsedString[i];
             boolean flag1 = currenBank.equals("연도");
             boolean flag2 = currenBank.equals("월");
@@ -78,7 +78,7 @@ public class CsvParser {
     }
 
     public List<FinanceStat> parseFinanceStatRow(List<Bank> bankList, String rawCsvLine) {
-        String [] parsedString = preProcessingCsvRawString(rawCsvLine);
+        String[] parsedString = preProcessingCsvRawString(rawCsvLine);
 
         // if number of elements less than number of banks, then file format is wrong (2 columns for year and month)
         if (bankList.size() != parsedString.length - 2) {
@@ -97,12 +97,12 @@ public class CsvParser {
         return financeStatList;
     }
 
-    protected String [] preProcessingCsvRawString(String rawCsvString) {
+    protected String[] preProcessingCsvRawString(String rawCsvString) {
         if (StringUtils.isEmpty(rawCsvString)) {
             new RuntimeException("CSV pre-processing error: empty raw string is given");
         }
 
-        String [] parsedString = removeQuotationProcessing(rawCsvString).split(CSV_SPLITTER);
+        String[] parsedString = removeQuotationProcessing(rawCsvString).split(CSV_SPLITTER);
         if (parsedString.length <= 0) {
             new RuntimeException("Conversion error: CSV splitting didn't work: " + rawCsvString);
         }
@@ -115,7 +115,7 @@ public class CsvParser {
 
         boolean isQuotationOpened = false;
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < rawCsvString.length() ;i++) {
+        for (int i = 0; i < rawCsvString.length(); i++) {
             char ch = rawCsvString.charAt(i);
 
             if (ch == '"') {

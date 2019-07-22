@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Data
 public class FinanceStat {
- 
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -18,7 +18,7 @@ public class FinanceStat {
 
     @Column(nullable = false)
     private Integer month;
-     
+
     @Column(nullable = false)
     private Integer bankId;
 

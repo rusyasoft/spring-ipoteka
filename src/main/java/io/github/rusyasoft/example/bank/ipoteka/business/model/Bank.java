@@ -10,11 +10,11 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 public class Bank {
- 
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-     
+
     @Column(nullable = false)
     private String name;
 

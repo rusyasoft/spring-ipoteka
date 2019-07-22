@@ -35,12 +35,12 @@ public class FinanceStatServiceTest {
 
     }
 
-    int globalIndex = 0;
+
     private ArrayList<IYearlySumAmounts> getListOfIYearlyTotalDetailAmounts() {
 
         ArrayList<IYearlySumAmounts> iYearlySumAmountsList = new ArrayList<>();
 
-        for (globalIndex = 1; globalIndex <= 5; globalIndex++) {
+        for (int globalIndex = 1; globalIndex <= 5; globalIndex++) {
             YearlySumAmountsTest iYearlySumAmounts = new YearlySumAmountsTest();
             iYearlySumAmounts.setYear( 2016);
             iYearlySumAmounts.setName("bank"+globalIndex);

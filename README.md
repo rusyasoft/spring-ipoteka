@@ -88,7 +88,7 @@ Example response body with no data available exception:
 * 주택금융 공급 금융기관(은행) 목록을 출력하는 API
 * 년도별 각 금융기관의 지원금액 합계를 출력하는 API
 * 각 년도별 각 기관의 전체 지원금액 중에서 가장 큰 금액의 기관명을 출력하는 API 개발
-    * 예를들어, 2005 년 ~2017 년 중에 2010 년 국민은행의 전체 지원금액(1 월~12 월 지원 합계)이 가장 높았다면 { “year": “2010” , "bank": “국민은행”}을 결과로 출력합니다
+    * 예를들어, 2005 년 ~ 2017 년 중에 2010 년 국민은행의 전체 지원금액(1 월~12 월 지원 합계)이 가장 높았다면 { “year": “2010” , "bank": “국민은행”}을 결과로 출력합니다
 * 전체 년도(2005~2016)에서 외환은행의 지원금액 평균 중에서 가장 작은 금액과 큰 금액을 출력하는 API
     * 예를들어, 2005 년 ~ 2016 년 외환은행의 평균 지원금액 (매년 12 달의 지원금액 평균값)을 계산하여 가장 작은 값과 큰 값을 출력합니다. 소수점 이하는 반올림해서 계산하세요
     
@@ -111,8 +111,7 @@ Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU2Mzg4NDU3NiwiZXhwIjox
 
 ####  Failure Token:
 ```
-Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmZWRvciIsImlhdCI6MTU2Mzc5NDc1MSwiZXhwIjoxNTYzODgxMTUxfQ.kvfeCpwYETTLVbL5Deq3dCdCUFZTOFv5WN3JuXCWV0YV9Vwb4EnEjZ21u85_1J1lnTSaVVcDrWJmax5SYz9M9g
-       eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmZWRvciIsImlhdCI6MTU2Mzg4MTE0MywiZXhwIjoxNjUwMjgxfQ.MNZqBmxBA1q61EdpWvmlxJZGBHtwSkNkmFE15CMsTkUoH7vD5M45Ebf1kgDTUWSn6ZMRjKJKmPmPwf4gxY6GZw
+Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmZWRvciIsImlhdCI6MTU2Mzc5NDc1MSwiZXhwIjoxNTYzODgxMTUxfQ.kvfeCpwYETTLVbL5Deq3dCdCUFZTOFv5WN3JuXCWV0YV9Vwb4EnEjZ21u85_1J1lnTSaVVcDrWJmax5SYz9M9g       
 ```
 
 

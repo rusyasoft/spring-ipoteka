@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/security/")
 @RestController
 @Slf4j
-public class JwtTokenProviderController {
+public class TokenProviderController {
 
     @Autowired
     JwtTokenProviderService jwtTokenProviderService;

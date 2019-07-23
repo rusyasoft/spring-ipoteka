@@ -46,7 +46,7 @@ public class JwtTokenProviderService {
     public JwtInfoDetails authenticateAndGenerateToken(LoginParam loginParam) throws Exception {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpInSeconds * ONE_SECOND_IN_MILLISECONDS);
-        return authenticateAndGenerateToken(loginParam.getLoginId(), loginParam.getPassword(), now, expiryDate);
+        return authenticateAndGenerateToken(loginParam.getUsername(), loginParam.getPassword(), now, expiryDate);
     }
 
     public JwtInfoDetails authenticateAndGenerateToken(String userName, String password, Date issueAt, Date expiryDate) throws Exception {

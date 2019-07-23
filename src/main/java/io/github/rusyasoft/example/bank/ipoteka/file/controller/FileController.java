@@ -43,10 +43,10 @@ public class FileController {
         return fileStorageService.uploadSingleFile(file);
     }
 
-    @GetMapping("/parse")
+    @GetMapping("/loadTestData")
     @ApiOperation(value = "Resource 에 있는 예지즐 업로드 와 parsing 하기 (upload file from resource folder)", response = Boolean.class)
     public Boolean parseThem() {
-        String totalStr = csvFileReaderService.readResourceFile("123.csv");
+        String totalStr = csvFileReaderService.readResourceFile("123.csv"); //"서버개발_사전과제3_주택금융신용보증_금융기관별_공급현황.csv");
         return csvParser.parseCsvAndStore(totalStr);
     }
 

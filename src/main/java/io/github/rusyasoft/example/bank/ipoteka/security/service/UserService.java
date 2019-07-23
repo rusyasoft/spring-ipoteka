@@ -23,9 +23,9 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public UserEntity addUser(UserEntity admin) {
+    public UserEntity addUser(UserEntity userEntity) {
         try {
-            return userRepository.save(encryptUserPassword(admin));
+            return userRepository.save(encryptUserPassword(userEntity));
         } catch (DataIntegrityViolationException ex) {
             throw new RuntimeException("The user already exist !");
         }
@@ -33,12 +33,12 @@ public class UserService {
     }
 
     public UserEntity resetPassword(Long id, String rawPassword) {
-        UserEntity admin = this.getUserById(id);
-        if (admin != null) {
-            admin.setPassword(rawPassword);
-            updateUser(admin);
+        UserEntity userEntity = this.getUserById(id);
+        if (userEntity != null) {
+            userEntity.setPassword(rawPassword);
+            updateUser(userEntity);
         }
-        return admin;
+        return userEntity;
     }
 
     private UserEntity updateUser(UserEntity user) {

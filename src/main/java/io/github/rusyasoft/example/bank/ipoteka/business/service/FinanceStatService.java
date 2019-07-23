@@ -9,11 +9,9 @@ import io.jsonwebtoken.lang.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class FinanceStatService {
@@ -27,6 +25,10 @@ public class FinanceStatService {
     public List<IYearlyTotalDetailAmounts> getYearlyTotalDetailAmounts() {
 
         List<IYearlySumAmounts> yearlySumAmounts = financeStatRepository.findYearlyTotalDetailAmounts();
+
+        if (Collections.isEmpty(yearlySumAmounts)) {
+            throw new RuntimeException("No data available for processing!");
+        }
 
         Map<Integer, YearlyAggregate> collectByYears = new HashMap<>();
 
@@ -54,7 +56,13 @@ public class FinanceStatService {
     }
 
     public IHighestValuedBankYear getHighestValuedBankYear() {
-        return financeStatRepository.findHighestValuedBankYear();
+        IHighestValuedBankYear iHighestValuedBankYear = financeStatRepository.findHighestValuedBankYear();
+
+        if (Objects.isNull(iHighestValuedBankYear)) {
+            throw new RuntimeException("No data available for processing!");
+        }
+
+        return iHighestValuedBankYear;
     }
 
     public ExtremePointsOfAverage getMinMaxYearlyAveragesOfBank(int id) {
@@ -88,7 +96,7 @@ public class FinanceStatService {
 
     }
 
-    public FinanceStatPredictResponse getPrediction(int month, String bankName) throws Exception {
+    public FinanceStatPredictResponse getPrediction(Integer month, String bankName) throws Exception {
         ArimaWrapper arimaWrapper = new ArimaWrapper();
 
         List<Bank> bankList = bankRepository.findByNameContaining(bankName);

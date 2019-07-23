@@ -9,6 +9,7 @@ import io.github.rusyasoft.example.bank.ipoteka.business.service.FinanceStatServ
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -62,7 +63,17 @@ public class BusinessApiController {
 
     @GetMapping("/predict")
     @ApiOperation(value = "특정 은행의 특정 달에 대해서 2018 년도 해당 달에 금융지원 금액을 예측하는 API", response = FinanceStatPredictResponse.class)
-    public FinanceStatPredictResponse getPrediction(int month, String bankName) throws Exception {
+    public FinanceStatPredictResponse getPrediction(Integer month, String bankName) throws Exception {
+
+        // validation logics
+        if (StringUtils.isEmpty(bankName)) {
+            throw new RuntimeException("Bank name is null");
+        }
+
+        if (StringUtils.isEmpty(month)) {
+            throw new RuntimeException("Month is not given");
+        }
+
         return financeStatService.getPrediction(month, bankName);
     }
 }

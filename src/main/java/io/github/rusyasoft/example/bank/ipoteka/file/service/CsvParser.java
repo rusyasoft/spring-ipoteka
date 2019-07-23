@@ -65,16 +65,29 @@ public class CsvParser {
         String[] parsedString = preProcessingCsvRawString(rawCsvLine);
 
         List<Bank> resultBankList = new ArrayList<>();
-        for (int i = 0; i < parsedString.length; i++) {
-            String currenBank = parsedString[i];
-            boolean flag1 = currenBank.equals("연도");
-            boolean flag2 = currenBank.equals("월");
-            if (!flag1 && !flag2) {
-                resultBankList.add(new Bank(currenBank));
-            }
+        for (int i = 2; i < parsedString.length; i++) {
+
+
+
+            resultBankList.add(new Bank(removingParentheses(parsedString[i])));
+//            String currenBank = parsedString[i];
+//            boolean flag1 = currenBank.equals("연도");
+//            boolean flag2 = currenBank.equals("월");
+//            if (!flag1 && !flag2) {
+//                resultBankList.add(new Bank(currenBank));
+//            }
         }
 
         return resultBankList;
+    }
+
+    protected String removingParentheses(String input) {
+        int indexOfOpeningParentheses = input.indexOf("(");
+        if (indexOfOpeningParentheses == -1)
+            return input;
+
+        return input.substring(0, indexOfOpeningParentheses);
+
     }
 
     public List<FinanceStat> parseFinanceStatRow(List<Bank> bankList, String rawCsvLine) {

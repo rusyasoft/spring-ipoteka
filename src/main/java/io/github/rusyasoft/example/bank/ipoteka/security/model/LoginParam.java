@@ -7,6 +7,6 @@ import lombok.Data;
 @JsonSerialize
 @Data
 public class LoginParam {
-    private String loginId;
+    private String username;
     private String password;
 }

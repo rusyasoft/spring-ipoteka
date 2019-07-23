@@ -76,4 +76,11 @@ public class CsvParserTest {
         Assert.assertEquals(QUOTED_OUTPUT_STRING, resultString);
     }
 
+    @Test
+    public void removingParenthesesTest() {
+        String resultString = csvParser.removingParentheses("주택도시기금1)()()()()dfdfdf");
+        Assert.assertEquals("주택도시기금1)", resultString);
+    }
+
+
 }

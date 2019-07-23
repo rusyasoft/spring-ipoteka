@@ -1,7 +1,7 @@
 # Ipoteka : Bank and House loan example 
 
 
-### Run Project
+## Run Project
 
 `#gradle bootRun`
 or
@@ -10,9 +10,9 @@ or
 
 http://localhost:8081/swagger-ui.html  is the good place to start. Swagger has very simple and intuitive way of requesting and working with API. (Postman or any other tool also can be used)
 
-![swagger-main-api](swagger-main-api.png)
+![swagger-main-api](swagger-main.png)
 
-### Token
+## Token
 
 Any operations except token-provider-controller forbidden for use:
 
@@ -46,7 +46,7 @@ Response:
 ![swagger-put-token](swagger-put-token.png)
 
 
-### Upload File
+## Upload File
 
 Three file controllers are included.
 
@@ -57,7 +57,7 @@ Three file controllers are included.
 
 **/input/fileUpload** is the main controller, other two can be considered as a supportive controllers. **/input/loadTestData** is the GET controller and used for loading the test data from the resources folder. It also performs file reading and parsing operations as it done by **/input/fileUpload** controller.
 
-### Business API 
+## Business API 
 
 Is main controller which is doing various business requests over the uploaded data
 
@@ -82,14 +82,7 @@ Example response body with no data available exception:
 ```
 
 
-### Improvements:
-
-- Detail validation checks are required
-- Prediction model should be tested more and if necessary changed with more appropriate model
-- RuntimeExceptions can be changed into a custom exception classes to handle the errors
-
-
-### Detail Requirements for API:
+## Detail Requirements for API:
 
 * 데이터 파일에서 각 레코드를 데이터베이스에 저장하는 API
 * 주택금융 공급 금융기관(은행) 목록을 출력하는 API
@@ -101,6 +94,14 @@ Example response body with no data available exception:
     
 * 특정 은행의 특정 달에 대해서 2018 년도 해당 달에 금융지원 금액을 예측하는 API
     * 단, 예측 알고리즘을 무엇을 써야하는지에 대한 제약은 없지만, 가장 근사치에 가까울 수록 높은 점수 부여
+
+
+## Improvements:
+
+- Detail validation checks are required
+- Prediction model should be tested more and if necessary changed with more appropriate model
+- RuntimeExceptions can be changed into a custom exception classes to handle the errors
+- Test cases for token management is required
 
 
 ### Token For 1 Year

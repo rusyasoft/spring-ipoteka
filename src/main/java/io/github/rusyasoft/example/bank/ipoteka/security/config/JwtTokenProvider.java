@@ -20,7 +20,7 @@ public class JwtTokenProvider {
     @Value("${user-security.jwtSecret:secret}")
     private String secretKey = "secret";
     @Value("${user-security.jwtExpInSeconds:3600000}")
-    private long validityInMilliseconds = 3600000; // 1h
+    private long validityInMilliseconds; // 1h
 
     @Autowired
     private UserDetailsService userDetailsService;

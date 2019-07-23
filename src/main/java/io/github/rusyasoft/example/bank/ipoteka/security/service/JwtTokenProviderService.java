@@ -25,16 +25,16 @@ public class JwtTokenProviderService {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtTokenProviderService.class);
 
-    private static final int ONE_SECOND_IN_MILLISECONDS = 1000;
+    private static final Long ONE_SECOND_IN_MILLISECONDS = 1000L;
 
     @Value("${user-security.jwtSecret}")
     private String jwtSecret;
 
     @Value("${user-security.jwtExpInSeconds}")
-    private int jwtExpInSeconds;
+    private Long jwtExpInSeconds;
 
     @Value("${user-security.jwtRefreshExpInSeconds}")
-    private int jwtRefreshExpInSeconds;
+    private Long jwtRefreshExpInSeconds;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -45,7 +45,8 @@ public class JwtTokenProviderService {
 
     public JwtInfoDetails authenticateAndGenerateToken(LoginParam loginParam) throws Exception {
         Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + jwtExpInSeconds * ONE_SECOND_IN_MILLISECONDS);
+        Long newExpiryEpoch = now.getTime() + jwtExpInSeconds * ONE_SECOND_IN_MILLISECONDS;
+        Date expiryDate = new Date(newExpiryEpoch);
         return authenticateAndGenerateToken(loginParam.getUsername(), loginParam.getPassword(), now, expiryDate);
     }
 
@@ -134,7 +135,7 @@ public class JwtTokenProviderService {
                 throw new RuntimeException("Username must be provided in Jwt");
             }
 
-            Date newExpiryDate = new Date(nowInSeconds + jwtExpInSeconds * ONE_SECOND_IN_MILLISECONDS);
+            Date newExpiryDate = new Date( (nowInSeconds + jwtExpInSeconds) * ONE_SECOND_IN_MILLISECONDS);
             return generateToken(userName, now, newExpiryDate);
         } catch (Exception e) {
             return JwtInfoDetails.builder().success(false).message(e.getMessage()).token("").build();

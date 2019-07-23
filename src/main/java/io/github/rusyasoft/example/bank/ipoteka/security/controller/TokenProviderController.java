@@ -45,7 +45,7 @@ public class TokenProviderController {
 
     @PostMapping(value = "/user-password-reset")
     @ApiOperation(value = "사용자 비밀 번호 reset 하기 (with requestBody)", response = UserEntityResponse.class)
-    public UserEntityResponse addUser(@RequestBody UserPasswordEntity userPasswordEntity) {
+    public UserEntityResponse userPasswordReset(@RequestBody UserPasswordEntity userPasswordEntity) {
         UserEntityResponse userEntityResponse = new UserEntityResponse(
                 userService.resetPassword(userPasswordEntity.getId(), userPasswordEntity.getPassword())
         );

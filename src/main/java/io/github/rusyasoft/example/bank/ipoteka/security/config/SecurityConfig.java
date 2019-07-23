@@ -1,5 +1,6 @@
 package io.github.rusyasoft.example.bank.ipoteka.security.config;
 
+import io.github.rusyasoft.example.bank.ipoteka.security.filter.JwtTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.header.HeaderWriterFilter;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -42,11 +44,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/input/**").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
-                .apply(new JwtConfigurer(jwtTokenProvider))
-                .and()
+                //.apply(new JwtConfigurer(jwtTokenProvider))
+                //.and()
                 .exceptionHandling().accessDeniedHandler(businessAccessDeniedHandler)
         ;
+
+        http.addFilterBefore(jwtAuthenticationFilter(), HeaderWriterFilter.class);
         //@formatter:on
+    }
+
+    @Bean
+    public JwtTokenFilter jwtAuthenticationFilter() {
+        return new JwtTokenFilter();
     }
 
     @Override

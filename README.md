@@ -10,6 +10,7 @@ or
 
 http://localhost:8081/swagger-ui.html  is the good place to start. Swagger has very simple and intuitive way of requesting and working with API. (Postman or any other tool also can be used)
 
+![swagger-main-api](swagger-main-api.png)
 
 ### Token
 
@@ -42,7 +43,7 @@ Response:
 }
 ```
 
-Img: swagger-put-token
+![swagger-put-token](swagger-put-token.png)
 
 
 ### Upload File
